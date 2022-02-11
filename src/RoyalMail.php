@@ -17,9 +17,18 @@ class RoyalMail implements Driver
     public const BASE_URI = 'https://api.royalmail.net';
     private ClientInterface $client;
 
-    public function __construct(private string $clientId, private string $clientSecret, private bool $acceptTerms = true, ?ClientInterface $client = null)
+    private function __construct(private string $clientId, private string $clientSecret, private bool $acceptTerms = true, ?ClientInterface $client = null)
     {
         $this->client = $client ?? GuzzleFactory::make(['base_uri' => self::BASE_URI]);
+    }
+    
+    public static function make(array $config, ?ClientInterface $client = null): self
+    {
+        return new self(
+            clientId: $config['client_id'],
+            clientSecret: $config['client_secret'],
+            acceptTerms: $config['accept_terms'],
+        );
     }
 
     public function find(string $identifier, array $parameters = []): TrackingDetails
