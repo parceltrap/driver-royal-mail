@@ -21,7 +21,7 @@ class RoyalMail implements Driver
     {
         $this->client = $client ?? GuzzleFactory::make(['base_uri' => self::BASE_URI]);
     }
-    
+
     public static function make(array $config, ?ClientInterface $client = null): self
     {
         return new self(
