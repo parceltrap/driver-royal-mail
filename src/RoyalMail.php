@@ -22,12 +22,13 @@ class RoyalMail implements Driver
         $this->client = $client ?? GuzzleFactory::make(['base_uri' => self::BASE_URI]);
     }
 
+    /** @param array{client_id: string, client_secret: string, accept_terms: bool} $config */
     public static function make(array $config, ?ClientInterface $client = null): self
     {
         return new self(
-            clientId: (string) $config['client_id'],
-            clientSecret: (string) $config['client_secret'],
-            acceptTerms: (bool) $config['accept_terms'],
+            clientId: $config['client_id'],
+            clientSecret: $config['client_secret'],
+            acceptTerms: $config['accept_terms'],
             client: $client,
         );
     }
