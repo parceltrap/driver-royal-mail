@@ -25,9 +25,10 @@ class RoyalMail implements Driver
     public static function make(array $config, ?ClientInterface $client = null): self
     {
         return new self(
-            clientId: $config['client_id'],
-            clientSecret: $config['client_secret'],
-            acceptTerms: $config['accept_terms'],
+            clientId: (string) $config['client_id'],
+            clientSecret: (string) $config['client_secret'],
+            acceptTerms: (bool) $config['accept_terms'],
+            client: $client,
         );
     }
 
