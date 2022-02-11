@@ -19,7 +19,33 @@ composer require parceltrap/driver-royal-mail
 
 ## Usage
 
-...
+```php
+use ParcelTrap\ParcelTrap;
+use ParcelTrap\RoyalMail\RoyalMail;
+
+$parcelTrap = ParcelTrap::make([
+    'royal_mail' => RoyalMail::make([
+        'client_id' => 'your-client-id',
+        'client_secret' => 'your-client-secret',
+        'accept_terms' => true,
+    ]);
+]);
+```
+
+#### Using with the Laravel package
+
+Add the following to your `config/parceltrap.php` configuration file:
+
+```php
+'royal_mail' => [
+    'client_id' => env('PARCELTRAP_ROYAL_MAIL_CLIENT_ID'),
+    'client_secret' => env('PARCELTRAP_ROYAL_MAIL_CLIENT_SECRET'),
+    'accept_terms' => env('PARCELTRAP_ROYAL_MAIL_ACCEPT_TERMS', true),
+    'driver' => ParcelTrap\RoyalMail\RoyalMail::class,
+],
+```
+
+Configure the relevant environment variables in your `.env` file.
 
 ## Change log
 
@@ -61,13 +87,13 @@ Read more about Treeware at [treeware.earth][link-treeware].
 [ico-version]: https://img.shields.io/packagist/v/parceltrap/driver-royal-mail.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-github-actions]: https://img.shields.io/github/workflow/status/parceltrap/driver-royal-mail/Tests.svg?style=flat-square
-[ico-styleci]: https://styleci.io/repos/000000/shield
+[ico-styleci]: https://styleci.io/repos/457523464/shield
 [ico-downloads]: https://img.shields.io/packagist/dt/parceltrap/driver-royal-mail.svg?style=flat-square
 [ico-treeware-gifting]: https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/parceltrap/driver-royal-mail
 [link-github-actions]: https://github.com/parceltrap/driver-royal-mail/actions
-[link-styleci]: https://styleci.io/repos/000000
+[link-styleci]: https://styleci.io/repos/457523464
 [link-downloads]: https://packagist.org/packages/parceltrap/driver-royal-mail
 [link-treeware]: https://treeware.earth
 [link-treeware-gifting]: https://ecologi.com/owenvoke?gift-trees
