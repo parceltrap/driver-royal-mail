@@ -21,9 +21,11 @@ class RoyalMailServiceProvider extends ServiceProvider
             $config = $this->app->make(Repository::class);
 
             return new RoyalMail(
-                clientId: (string) $config->get('parceltrap.royal_mail.client_id'), // @phpstan-ignore-line
-                clientSecret: (string) $config->get('parceltrap.royal_mail.client_secret'), // @phpstan-ignore-line
-                acceptTerms: (bool) $config->get('parceltrap.royal_mail.accept_terms'),
+                // @phpstan-ignore-next-line
+                clientId: (string) $config->get('parceltrap.drivers.royal_mail.client_id'),
+                // @phpstan-ignore-next-line
+                clientSecret: (string) $config->get('parceltrap.drivers.royal_mail.client_secret'),
+                acceptTerms: (bool) $config->get('parceltrap.drivers.royal_mail.accept_terms'),
             );
         });
     }
