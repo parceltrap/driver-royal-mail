@@ -14,23 +14,19 @@ use ParcelTrap\Enums\Status;
 
 class RoyalMail implements Driver
 {
+    public const IDENTIFIER = 'royal_mail';
+
     public const BASE_URI = 'https://api.royalmail.net';
+
     private ClientInterface $client;
 
-    private function __construct(private string $clientId, private string $clientSecret, private bool $acceptTerms = true, ?ClientInterface $client = null)
-    {
+    public function __construct(
+        private readonly string $clientId,
+        private readonly string $clientSecret,
+        private readonly bool $acceptTerms = true,
+        ?ClientInterface $client = null
+    ) {
         $this->client = $client ?? GuzzleFactory::make(['base_uri' => self::BASE_URI]);
-    }
-
-    /** @param array{client_id: string, client_secret: string, accept_terms: bool} $config */
-    public static function make(array $config, ?ClientInterface $client = null): self
-    {
-        return new self(
-            clientId: $config['client_id'],
-            clientSecret: $config['client_secret'],
-            acceptTerms: $config['accept_terms'],
-            client: $client,
-        );
     }
 
     public function find(string $identifier, array $parameters = []): TrackingDetails

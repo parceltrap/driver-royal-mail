@@ -6,23 +6,26 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use ParcelTrap\Contracts\Factory;
 use ParcelTrap\DTOs\TrackingDetails;
 use ParcelTrap\Enums\Status;
 use ParcelTrap\ParcelTrap;
 use ParcelTrap\RoyalMail\RoyalMail;
 
 it('can add the RoyalMail driver to ParcelTrap', function () {
-    $client = ParcelTrap::make(['royal_mail' => RoyalMail::make(['client_id' => 'abcdefg', 'client_secret' => 'hijklmno', 'accept_terms' => true])]);
-    $client->addDriver('royal_mail_other', RoyalMail::make(['client_id' => 'abcdefg', 'client_secret' => 'hijklmno', 'accept_terms' => true]));
+    /** @var ParcelTrap $client */
+    $client = $this->app->make(Factory::class);
 
-    expect($client)->hasDriver('royal_mail')->toBeTrue();
-    expect($client)->hasDriver('royal_mail_other')->toBeTrue();
+    $client->extend('royal_mail_other', fn () => new RoyalMail(
+        clientId: 'abcdefg', clientSecret: 'hijklmno', acceptTerms: true
+    ));
+
+    expect($client)->driver(RoyalMail::IDENTIFIER)->toBeInstanceOf(RoyalMail::class)
+        ->and($client)->driver('royal_mail_other')->toBeInstanceOf(RoyalMail::class);
 });
 
 it('can retrieve the RoyalMail driver from ParcelTrap', function () {
-    expect(ParcelTrap::make(['royal_mail' => RoyalMail::make(['client_id' => 'abcdefg', 'client_secret' => 'hijklmno', 'accept_terms' => true])]))
-        ->hasDriver('royal_mail')->toBeTrue()
-        ->driver('royal_mail')->toBeInstanceOf(RoyalMail::class);
+    expect($this->app->make(Factory::class)->driver(RoyalMail::IDENTIFIER))->toBeInstanceOf(RoyalMail::class);
 });
 
 it('can call `find` on the RoyalMail driver', function () {
@@ -102,7 +105,14 @@ it('can call `find` on the RoyalMail driver', function () {
         'handler' => $handlerStack,
     ]);
 
-    expect(ParcelTrap::make(['royal_mail' => RoyalMail::make(['client_id' => 'abcdefg', 'client_secret' => 'hijklmno', 'accept_terms' => true], $httpClient)])->driver('royal_mail')->find('090367574000000FE1E1B'))
+    $this->app->make(Factory::class)->extend(RoyalMail::IDENTIFIER, fn () => new RoyalMail(
+        clientId: 'abcdefg',
+        clientSecret: 'hijklmno',
+        acceptTerms: true,
+        client: $httpClient,
+    ));
+
+    expect($this->app->make(Factory::class)->driver('royal_mail')->find('090367574000000FE1E1B'))
         ->toBeInstanceOf(TrackingDetails::class)
         ->identifier->toBe('090367574000000FE1E1B')
         ->status->toBe(Status::In_Transit)
