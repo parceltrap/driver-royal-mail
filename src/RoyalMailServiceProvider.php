@@ -25,7 +25,7 @@ class RoyalMailServiceProvider extends ServiceProvider
                 clientId: (string) $config->get('parceltrap.drivers.royal_mail.client_id'),
                 // @phpstan-ignore-next-line
                 clientSecret: (string) $config->get('parceltrap.drivers.royal_mail.client_secret'),
-                acceptTerms: (bool) $config->get('parceltrap.drivers.royal_mail.accept_terms'),
+                acceptTerms: true,
             );
         });
     }

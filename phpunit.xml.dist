@@ -2,19 +2,15 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
-         colors="true"
-         verbose="true">
+         colors="true">
     <testsuites>
         <testsuite name="Test Suite">
             <directory suffix="Test.php">tests</directory>
         </testsuite>
     </testsuites>
-    <coverage processUncoveredFiles="true">
+    <source>
         <include>
             <directory suffix=".php">src</directory>
         </include>
-    </coverage>
-    <php>
-        <server name="PARCELTRAP_DEFAULT_DRIVER" value="royal_mail"/>
-    </php>
+    </source>
 </phpunit>

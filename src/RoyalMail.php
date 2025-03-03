@@ -24,7 +24,7 @@ class RoyalMail implements Driver
         private readonly string $clientId,
         private readonly string $clientSecret,
         private readonly bool $acceptTerms = true,
-        ?ClientInterface $client = null
+        ClientInterface|null $client = null
     ) {
         $this->client = $client ?? GuzzleFactory::make(['base_uri' => self::BASE_URI]);
     }
@@ -36,7 +36,21 @@ class RoyalMail implements Driver
             RequestOptions::QUERY => $parameters,
         ]);
 
-        /** @var array $json */
+        /**
+         * @var array{
+         *   mailPieces?: array{
+         *     mailPieceId?: string,
+         *     summary?: array{
+         *         statusCategory?: string,
+         *         summaryLine?: string,
+         *     },
+         *     estimatedDelivery?: array{
+         *         date?: string
+         *     },
+         *     events?: list<array>,
+         *   }
+         * } $json
+         */
         $json = json_decode($request->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
         assert(isset($json['mailPieces']), 'No shipment could be found with this id');
@@ -50,9 +64,9 @@ class RoyalMail implements Driver
 
         return new TrackingDetails(
             identifier: $json['mailPieceId'],
-            status: $this->mapStatus($json['summary']['statusCategory']),
             summary: $json['summary']['summaryLine'],
             estimatedDelivery: new DateTimeImmutable($json['estimatedDelivery']['date']),
+            status: $this->mapStatus($json['summary']['statusCategory']),
             events: $json['events'],
             raw: $json,
         );
