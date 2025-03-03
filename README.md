@@ -76,8 +76,8 @@ Read more about Treeware at [treeware.earth][link-treeware].
 
 [ico-version]: https://img.shields.io/packagist/v/parceltrap/driver-royal-mail.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-github-actions]: https://img.shields.io/github/workflow/status/parceltrap/driver-royal-mail/Tests.svg?style=flat-square
-[ico-static-analysis]: https://img.shields.io/github/workflow/status/parceltrap/driver-royal-mail/Static%20Analysis.svg?style=flat-square&label=Static%20Analysis
+[ico-github-actions]: https://img.shields.io/github/actions/workflow/status/parceltrap/driver-royal-mail/tests.yml?branch=main&style=flat-square&label=Tests
+[ico-static-analysis]: https://img.shields.io/github/actions/workflow/status/parceltrap/driver-royal-mail/static.yml?branch=main&style=flat-square&label=Static%20Analysis
 [ico-downloads]: https://img.shields.io/packagist/dt/parceltrap/driver-royal-mail.svg?style=flat-square
 [ico-treeware-gifting]: https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen?style=flat-square
 
