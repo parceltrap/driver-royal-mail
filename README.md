@@ -39,7 +39,7 @@ Configure the relevant environment variables in your `.env` file.
 
 ## Change log
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+Please see [GitHub Releases][link-github-releases] for more information on what has changed recently.
 
 ## Testing
 
@@ -82,6 +82,7 @@ Read more about Treeware at [treeware.earth][link-treeware].
 [ico-treeware-gifting]: https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/parceltrap/driver-royal-mail
+[link-github-releases]: https://github.com/parceltrap/driver-royal-mail/releases
 [link-github-actions]: https://github.com/parceltrap/driver-royal-mail/actions
 [link-static-analysis]: https://github.com/parceltrap/driver-royal-mail/actions/workflows/static.yml
 [link-downloads]: https://packagist.org/packages/parceltrap/driver-royal-mail
